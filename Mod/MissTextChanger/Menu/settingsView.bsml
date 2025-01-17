@@ -1,0 +1,9 @@
+<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
+    xsi:noNamespaceSchemaLocation='https://monkeymanboy.github.io/BSML-Docs/BSMLSchema.xsd'>
+    <vertical>
+        <toggle-setting value="Enabled" text="Enabled" apply-on-change="true"/>
+        <text text="~KeyboardInput" id="MissText" align="Capline" font-size="8" italics="true" bold="true"/>
+        <button click-event="ShowInputKeyboard" text="change..." pref-height="10" pref-width="27"/>
+    </vertical>
+    <modal-keyboard value="KeyboardInput" show-event="ShowInputKeyboard" click-off-closes="true"/>
+</bg>
