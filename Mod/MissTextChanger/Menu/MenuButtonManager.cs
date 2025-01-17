@@ -1,9 +1,10 @@
+using System;
 using BeatSaberMarkupLanguage.MenuButtons;
 using Zenject;
 
 namespace MissTextChanger.Menu;
 
-internal class MenuButtonManager : IInitializable
+internal class MenuButtonManager : IInitializable, IDisposable
 {
     private readonly MainFlowCoordinator mainFlowCoordinator;
     private readonly MissTextChangerFlowCoordinator missTextChangerFlowCoordinator;
@@ -12,7 +13,7 @@ internal class MenuButtonManager : IInitializable
 
     public MenuButtonManager(
         MainFlowCoordinator mainFlowCoordinator,
-        MissTextChangerFlowCoordinator missTextChangerFlowCoordinator, 
+        MissTextChangerFlowCoordinator missTextChangerFlowCoordinator,
         MenuButtons menuButtons)
     {
         this.mainFlowCoordinator = mainFlowCoordinator;
@@ -24,17 +25,17 @@ internal class MenuButtonManager : IInitializable
     public void Initialize()
     {
         menuButtons.RegisterButton(menuButton);
-    }
-
-    private void PresentFlowCoordinator()
-    {
         missTextChangerFlowCoordinator.DidFinish += DismissFlowCoordinator;
-        mainFlowCoordinator.PresentFlowCoordinator(missTextChangerFlowCoordinator);
     }
 
-    private void DismissFlowCoordinator()
+    public void Dispose()
     {
         missTextChangerFlowCoordinator.DidFinish -= DismissFlowCoordinator;
-        mainFlowCoordinator.DismissFlowCoordinator(missTextChangerFlowCoordinator);
     }
+
+    private void PresentFlowCoordinator() =>
+        mainFlowCoordinator.PresentFlowCoordinator(missTextChangerFlowCoordinator);
+
+    private void DismissFlowCoordinator() =>
+        mainFlowCoordinator.DismissFlowCoordinator(missTextChangerFlowCoordinator);
 }
