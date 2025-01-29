@@ -6,10 +6,15 @@ using Zenject;
 
 namespace MissTextChanger.Installers;
 
-internal class PlayerInstaller(PluginConfig pluginConfig) : Installer
+internal class PlayerInstaller : Installer
 {
-    private readonly PluginConfig pluginConfig = pluginConfig;
-    
+    private readonly PluginConfig pluginConfig;
+
+    public PlayerInstaller(PluginConfig pluginConfig)
+    {
+        this.pluginConfig = pluginConfig;
+    }
+
     public override void InstallBindings()
     {
         if (!pluginConfig.Enabled) return;

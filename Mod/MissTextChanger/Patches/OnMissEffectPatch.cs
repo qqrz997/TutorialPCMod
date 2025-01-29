@@ -3,10 +3,15 @@ using SiraUtil.Affinity;
 
 namespace MissTextChanger.Patches;
 
-internal class OnMissEffectPatch(MissTextEffectSpawner missTextEffectSpawner) : IAffinity
+internal class OnMissEffectPatch : IAffinity
 {
-    private readonly MissTextEffectSpawner missTextEffectSpawner = missTextEffectSpawner;
-    
+    private readonly MissTextEffectSpawner missTextEffectSpawner;
+
+    public OnMissEffectPatch(MissTextEffectSpawner missTextEffectSpawner)
+    {
+        this.missTextEffectSpawner = missTextEffectSpawner;
+    }
+
     [AffinityPrefix]
     [AffinityPatch(typeof(MissedNoteEffectSpawner), nameof(MissedNoteEffectSpawner.HandleNoteWasMissed))]
     private bool HandleNoteWasMissedPrefix(MissedNoteEffectSpawner __instance, NoteController noteController)

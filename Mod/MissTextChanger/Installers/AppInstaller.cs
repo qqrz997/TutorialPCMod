@@ -3,10 +3,15 @@ using Zenject;
 
 namespace MissTextChanger.Installers;
 
-internal class AppInstaller(PluginConfig pluginConfig) : Installer
+internal class AppInstaller : Installer
 {
-    private readonly PluginConfig pluginConfig = pluginConfig;
-    
+    private readonly PluginConfig pluginConfig;
+
+    public AppInstaller(PluginConfig pluginConfig)
+    {
+        this.pluginConfig = pluginConfig;
+    }
+
     public override void InstallBindings()
     {
         Container.BindInstance(pluginConfig).AsSingle();
